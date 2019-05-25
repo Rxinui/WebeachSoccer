@@ -1,0 +1,22 @@
+URL du site sur r-info-nacre : http://r-info-nacre/~lwr2466a
+
+Identifiant de connexion : admin
+Mot de passe : $iutinfo
+
+Le site est opérationnel et fait fonctionner toutes les fonctions demandées. Cependant, nous pouvons énumérés 3 problèmes :
+
+1) L'upload des photos. Elle fonctionne uniquement lorsque la photo se trouve dans le répertoire prévu à cette effet sur le serveur nommé "photo".
+
+2) La gestions des onglets "Joueurs, Matchs, Participants". Lorsqu'on valide un formulaire (comme celui à Afficher > Participants ), la requête nous renvoie toujours sur l'onglet "Joueurs" de la page concernée.
+
+3) Les dossiers "photo", "css", etc... ne sont pas protégés par les $_SESSION, c'est-a-dire qu'ils sont accessibles par l'URL sans être authentifié (Selon nous, cela est du ressort d'apache2). Par contre, les fichiers qui permettent l'affichage, la modification, etc.. sont protégés (voir code source).
+
+Remarques : 
+
+Lorsqu'on valide la création, suppression et modification de joueur, nous sommes redirigés vers une page qui indique si l'action s'est déroulé avec succès ou non puis nous redirige sur la page "afficher.php" après 3 secondes (voir code source).
+
+Notre table PARTICIPER a pour clé primaire une clé composé de l'identifiant de JOUEUR et de MATCHS. Elle suit une contrainte en CASCADE sur la suppression et la modification des champs. En autre, supprimer un champs de la table Joueur supprimera automatiquement tous les champs de Participer dont l'identifiant joueur correspond à celui du Joueur supprimé. Cela a des conséquences sur le "sens des règles du Beach Soccer". En effet, les statistiques montreront par exemple une équipe composé de 7 joueurs alors que la réglementation de ce sport oblige un effectif de 8 joueurs minimum (condition qui est gérée lorsqu'on remplit la feuille de match).
+
+Frameworks utilisés : bootstrap pour la mise en page, chart.js pour les graphiques (statistiques).
+
+ 
